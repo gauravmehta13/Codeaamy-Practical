@@ -1,0 +1,32 @@
+const Map<String, String> arSA = {
+  "abda": "عبدة",
+  "Watch your favorite movies or series on only one platform. You can watch it anytime and anywhere":
+      "مشاهدة فيلمك أو سلسلتك المفضلة على أقل عدد من الأنظمة. يمكنك مشاهدتها في أي وقت وفي أي مكان",
+  "Get Started": "البدء",
+  "Welcome Back!": "مرحبا بعودتك!",
+  "Please sign in to your account": "الرجاء تسجيل الدخول إلى حسابك",
+  "Email cannot be empty": "البريد الإلكتروني لا يمكن أن يكون فارغا",
+  "Please enter a valid email": "الرجاء إدخال بريد إلكتروني صالح",
+  "Email": "البريد الإلكتروني",
+  "Password cannot be empty": "كلمة المرور لا يمكن أن تكون فارغة",
+  "Password must be atleast 6 characters":
+      "كلمة المرور يجب أن تكون على الأقل 6 أحرف",
+  "Password must be less than 20 characters":
+      "كلمة المرور يجب أن تكون أقل من 20 حرف",
+  "Password": "كلمة المرور",
+  "Forgot Password?": "هل نسيت كلمة المرور؟",
+  "Sign In": "تسجيل الدخول",
+  "Sign in with Google": "تسجيل الدخول باستخدام جوجل",
+  "Don't have an account?": "ليس لديك حساب؟",
+  "Sign Up": "تسجيل",
+  "Create New Account": "إنشاء حساب جديد",
+  "Please fill in the form to continue": "الرجاء تعبئة النموذج للمتابعة",
+  "Enter your name": "أدخل اسمك",
+  "Full Name": "الاسم الكامل",
+  "Phone number cannot be empty": "رقم الهاتف لا يمكن أن يكون فارغا",
+  "Phone Number": "رقم الهاتف",
+  "Have an account?": "هل لديك حساب؟",
+  "Change Language": "تغيير اللغة",
+  "Logout": "تسجيل الخروج",
+  "Welcome": "مرحبا",
+};

@@ -1,0 +1,32 @@
+const Map<String, String> enUS = {
+  "abda": "abda",
+  "Watch your favorite movies or series on only one platform. You can watch it anytime and anywhere":
+      "Watch your favorite movies or series on only one platform. You can watch it anytime and anywhere",
+  "Get Started": "Get Started",
+  "Welcome Back!": "Welcome Back!",
+  "Please sign in to your account": "Please sign in to your account",
+  "Email cannot be empty": "Email cannot be empty",
+  "Please enter a valid email": "Please enter a valid email",
+  "Email": "Email Address",
+  "Password cannot be empty": "Password cannot be empty",
+  "Password must be atleast 6 characters":
+      "Password must be atleast 6 characters",
+  "Password must be less than 20 characters":
+      "Password must be less than 20 characters",
+  "Password": "Password",
+  "Forgot Password?": "Forgot Password?",
+  "Sign In": "Sign In",
+  "Sign in with Google": "Sign in with Google",
+  "Don't have an account?": "Don't have an account?",
+  "Sign Up": "Sign Up",
+  "Create New Account": "Create New Account",
+  "Please fill in the form to continue": "Please fill in the form to continue",
+  "Enter your name": "Enter your name",
+  "Full Name": "Full Name",
+  "Phone number cannot be empty": "Phone number cannot be empty",
+  "Phone Number": "Phone Number",
+  "Have an account?": "Have an account?",
+  "Change Language": "Change Language",
+  "Logout": "Logout",
+  "Welcome": "Welcome",
+};
