@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:abda_learning/core/resources/api_provider.dart';
 import 'package:abda_learning/meta/Utility/constants.dart';
 import 'package:abda_learning/meta/models/students.dart';
+import 'package:abda_learning/screens/map_view.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -44,8 +45,26 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Container(
           child: Container(
-        child: Center(
-          child: ElevatedButton(onPressed: getStudents, child: Text("data")),
+        child: Column(
+          children: [
+            Center(
+              child:
+                  ElevatedButton(onPressed: getStudents, child: Text("data")),
+            ),
+            Center(
+              child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MapView(
+                                  students: students,
+                                  initialIndex: 3,
+                                )));
+                  },
+                  child: Text("data")),
+            ),
+          ],
         ),
       )),
     );
