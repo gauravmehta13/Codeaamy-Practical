@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:abda_learning/screens/home_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -24,6 +26,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   bool obscureText = true;
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -183,5 +186,28 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
       ),
     );
+  }
+
+  Future emailSignUp() async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final email = _emailController.text;
+    final password = _passwordController.text;
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      var authResult = await auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      final User? user = authResult.user;
+      if (user != null) {
+        Get.offAll(() => const HomePage());
+      }
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      debugPrint(e.toString());
+      Get.snackbar("Error", "Error, please try again later..!!");
+    }
   }
 }

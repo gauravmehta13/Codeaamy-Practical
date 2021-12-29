@@ -26,6 +26,9 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  bool loadingGoogle = false;
+  bool loadingMail = false;
+
   bool obscureText = true;
   @override
   Widget build(BuildContext context) {
@@ -174,7 +177,7 @@ class _LoginPageState extends State<LoginPage> {
                     onTap: googleLogin,
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 500),
-                      width: isLoading ? null : 700,
+                      width: loadingGoogle ? null : 700,
                       constraints: BoxConstraints(
                         maxWidth: width * 0.9,
                         maxHeight: height * 0.6,
@@ -182,12 +185,12 @@ class _LoginPageState extends State<LoginPage> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius:
-                            BorderRadius.circular(isLoading ? 500 : 20),
+                            BorderRadius.circular(loadingGoogle ? 500 : 20),
                       ),
                       padding: EdgeInsets.symmetric(
-                          horizontal: isLoading ? 12 : 20,
-                          vertical: isLoading ? 12 : 22),
-                      child: isLoading
+                          horizontal: loadingGoogle ? 12 : 20,
+                          vertical: loadingGoogle ? 12 : 22),
+                      child: loadingGoogle
                           ? const SizedBox(
                               height: 30,
                               width: 30,
@@ -241,19 +244,17 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  bool isLoading = false;
-
   Future googleLogin() async {
     final FirebaseAuth auth = FirebaseAuth.instance;
     final googleSignIn = GoogleSignIn();
     setState(() {
-      isLoading = true;
+      loadingGoogle = true;
     });
     try {
       final user = await googleSignIn.signIn();
       if (user == null) {
         setState(() {
-          isLoading = false;
+          loadingGoogle = false;
         });
         return;
       } else {
@@ -277,7 +278,30 @@ class _LoginPageState extends State<LoginPage> {
       }
     } catch (e) {
       setState(() {
-        isLoading = false;
+        loadingGoogle = false;
+      });
+      debugPrint(e.toString());
+      Get.snackbar("Error", "Error, please try again later..!!");
+    }
+  }
+
+  Future emailLogin() async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final email = emailController.text;
+    final password = passwordController.text;
+    setState(() {
+      loadingMail = true;
+    });
+    try {
+      var authResult = await auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      final User? user = authResult.user;
+      if (user != null) {
+        Get.offAll(() => const HomePage());
+      }
+    } catch (e) {
+      setState(() {
+        loadingMail = false;
       });
       debugPrint(e.toString());
       Get.snackbar("Error", "Error, please try again later..!!");

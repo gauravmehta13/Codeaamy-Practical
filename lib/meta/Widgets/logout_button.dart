@@ -17,7 +17,7 @@ class LogoutButton extends StatelessWidget {
               .then((value) => SharedPreferences.getInstance().then((prefs) {
                     prefs
                         .clear()
-                        .then((value) => Get.offAll(const LoginPage()));
+                        .then((value) => Get.offAll(() => const LoginPage()));
                   }));
         },
         child: Text("Logout".tr,
