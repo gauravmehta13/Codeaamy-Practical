@@ -2,7 +2,8 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:technource_practical/core/models/user_data.dart';
+
+import '../models/user_data.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override

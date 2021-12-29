@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:technource_practical/meta/Widgets/custom_button.dart';
 
 import '../meta/Utility/constants.dart';
+import '../meta/Widgets/custom_button.dart';
 import 'login.dart';
 
 class GettingStarted extends StatefulWidget {

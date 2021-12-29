@@ -1,15 +1,18 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:technource_practical/auth/sign_up.dart';
-import 'package:technource_practical/meta/Utility/constants.dart';
-import 'package:technource_practical/meta/Utility/responsive.dart';
-import 'package:technource_practical/meta/Widgets/custom_button.dart';
-import 'package:technource_practical/screens/profile.dart';
+
+import '../meta/Utility/constants.dart';
+import '../meta/Utility/responsive.dart';
+import '../meta/Widgets/custom_button.dart';
+import '../screens/profile.dart';
+import 'sign_up.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -231,5 +234,40 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  bool isLoading = false;
+
+  Future googleLogin() async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final googleSignIn = GoogleSignIn();
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      final user = await googleSignIn.signIn();
+      if (user == null) {
+        setState(() {
+          isLoading = false;
+        });
+        return;
+      } else {
+        final googleAuth = await user.authentication;
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+        await auth.signInWithCredential(credential).then((value) async {
+          debugPrint("User is New = ${value.additionalUserInfo!.isNewUser}");
+          Get.offAll(() => const Profile());
+        });
+      }
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      debugPrint(e.toString());
+      Get.snackbar("Error", "Error, please try again later..!!");
+    }
   }
 }

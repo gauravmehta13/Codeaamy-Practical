@@ -3,12 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:technource_practical/screens/profile.dart';
 
 import 'auth/getting_started.dart';
 import 'core/localization/locale.dart';
 import 'core/resources/api_provider.dart';
 import 'core/theme/app_theme.dart';
+import 'screens/profile.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

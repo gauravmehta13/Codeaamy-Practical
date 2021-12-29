@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "805107837998",
+    "project_id": "abda-learning",
+    "storage_bucket": "abda-learning.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:805107837998:android:253da8231794dcaefd83bf",
+        "android_client_info": {
+          "package_name": "com.codeaamy.practical"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "805107837998-p4jeldnagsi59ih5tnft7aolu9ek23ns.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.codeaamy.practical",
+            "certificate_hash": "d4524e4e694d1330896b1a65710c31196e7942fa"
+          }
+        },
+        {
+          "client_id": "805107837998-0nqverv9eigaad7bgk00o5cs84lo42qo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdUcE7tL8CkwfefffCsezxwIW3Iac-dcA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "805107837998-0nqverv9eigaad7bgk00o5cs84lo42qo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,9 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:technource_practical/meta/Utility/constants.dart';
-import 'package:technource_practical/meta/Widgets/custom_button.dart';
-import 'package:technource_practical/screens/profile.dart';
+
+import '../meta/Utility/constants.dart';
+import '../meta/Widgets/custom_button.dart';
+import '../screens/profile.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);

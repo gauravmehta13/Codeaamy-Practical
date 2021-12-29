@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:technource_practical/meta/Utility/constants.dart';
 
+import '../../meta/Utility/constants.dart';
 import 'app_color.dart';
 
 //?https://medium.com/globant/flutter-dynamic-theme-dark-mode-custom-themes-bded572c8cdf

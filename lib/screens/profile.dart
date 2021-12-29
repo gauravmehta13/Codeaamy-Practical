@@ -5,10 +5,11 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:technource_practical/auth/login.dart';
-import 'package:technource_practical/core/models/user_data.dart';
-import 'package:technource_practical/core/resources/api_provider.dart';
-import 'package:technource_practical/meta/Utility/constants.dart';
+
+import '../auth/login.dart';
+import '../core/models/user_data.dart';
+import '../core/resources/api_provider.dart';
+import '../meta/Utility/constants.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
