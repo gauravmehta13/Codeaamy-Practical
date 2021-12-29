@@ -1,18 +1,18 @@
-import 'dart:io';
-
+import 'package:abda_learning/screens/home_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'auth/getting_started.dart';
 import 'core/localization/locale.dart';
-import 'core/resources/api_provider.dart';
 import 'core/theme/app_theme.dart';
 import 'screens/profile.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  HttpOverrides.global = MyHttpOverrides();
+  await Firebase.initializeApp();
+
   Future<SharedPreferences> prefs = SharedPreferences.getInstance();
   prefs.then((pref) async {
     String? userData = pref.getString("user");
@@ -48,6 +48,6 @@ class MyApp extends StatelessWidget {
         darkTheme: AppTheme(context).darkTheme,
         themeMode: ThemeMode.dark,
         defaultTransition: Transition.fadeIn,
-        home: page);
+        home: const HomePage());
   }
 }

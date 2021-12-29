@@ -1,4 +1,4 @@
-class Students {
+class StudentData {
   int? id;
   String? firstName;
   String? lastName;
@@ -7,7 +7,7 @@ class Students {
   double? lat;
   double? long;
 
-  Students({
+  StudentData({
     this.id,
     this.firstName,
     this.lastName,
@@ -17,7 +17,7 @@ class Students {
     this.long,
   });
 
-  Students.fromJson(Map<String, dynamic> json) {
+  StudentData.fromJson(Map<String, dynamic> json) {
     id = json['id'] as int?;
     firstName = json['first_name'] as String?;
     lastName = json['last_name'] as String?;

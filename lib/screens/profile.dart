@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -8,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../auth/login.dart';
 import '../core/models/user_data.dart';
-import '../core/resources/api_provider.dart';
 import '../meta/Utility/constants.dart';
 
 class Profile extends StatefulWidget {
@@ -29,27 +26,22 @@ class _ProfileState extends State<Profile> {
   bool isLoading = true;
 
   getUserData() async {
-    try {
-      UserData data = await ApiClient().getUserData();
-      setState(() {
-        userData = data;
-        isLoading = false;
-      });
-      log(data.name ?? "");
-      log(data.emailId ?? "");
-      log(data.profilePic ?? "");
-    } catch (e) {
-      log(e.toString());
-      displaySnackBar(e.toString(), context);
-      setState(() => isLoading = false);
-    }
+    //   try {
+    //     UserData data = await ApiClient().getUserData();
+    //     setState(() {
+    //       userData = data;
+    //       isLoading = false;
+    //     });
+    //     log(data.name ?? "");
+    //     log(data.emailId ?? "");
+    //     log(data.profilePic ?? "");
+    //   } catch (e) {
+    //     log(e.toString());
+    //     displaySnackBar(e.toString(), context);
+    //     setState(() => isLoading = false);
+    //   }
   }
 
-  List images = [
-    "https://images.fandango.com/ImageRenderer/0/0/redesign/static/img/default_poster.png/0/images/masterrepository/other/ant_man_ver5.jpg",
-    "https://cdn.shopify.com/s/files/1/0057/3728/3618/products/space-jam-a-new-legacy_hhwsqipd_240x360_crop_center.progressive.jpg?v=1618580955",
-    "https://i.pinimg.com/originals/27/04/ee/2704ee6494308b58ba3968f17354596f.jpg",
-  ];
   @override
   void dispose() {
     super.dispose();

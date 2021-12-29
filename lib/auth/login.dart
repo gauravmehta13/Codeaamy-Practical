@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:abda_learning/screens/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,7 +12,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../meta/Utility/constants.dart';
 import '../meta/Utility/responsive.dart';
 import '../meta/Widgets/custom_button.dart';
-import '../screens/profile.dart';
 import 'sign_up.dart';
 
 class LoginPage extends StatefulWidget {
@@ -164,24 +164,13 @@ class _LoginPageState extends State<LoginPage> {
                             "password": passwordController.text,
                           };
                           prefs.setString("user", json.encode(data));
-                          Get.offAll(() => const Profile());
+                          Get.offAll(() => const HomePage());
                         }
                       },
                       text: "Sign In".tr),
                   box(height * 0.02),
                   InkWell(
-                    onTap: () async {
-                      if (formKey.currentState!.validate()) {
-                        SharedPreferences prefs =
-                            await SharedPreferences.getInstance();
-                        Map data = {
-                          "email": emailController.text,
-                          "password": passwordController.text,
-                        };
-                        prefs.setString("user", json.encode(data));
-                        Get.offAll(() => const Profile());
-                      }
-                    },
+                    onTap: googleLogin,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 22),
@@ -259,7 +248,7 @@ class _LoginPageState extends State<LoginPage> {
         );
         await auth.signInWithCredential(credential).then((value) async {
           debugPrint("User is New = ${value.additionalUserInfo!.isNewUser}");
-          Get.offAll(() => const Profile());
+          Get.offAll(() => const HomePage());
         });
       }
     } catch (e) {
