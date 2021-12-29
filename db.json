@@ -1,4 +1,4 @@
-[{"id":1,"first_name":"Cordell","last_name":"Sessions","email":"csessions0@un.org","gender":"Female","lat":31.2682228,"long":56.7973878},
+{"students":[{"id":1,"first_name":"Cordell","last_name":"Sessions","email":"csessions0@un.org","gender":"Female","lat":31.2682228,"long":56.7973878},
     {"id":2,"first_name":"Pia","last_name":"Eastman","email":"peastman1@guardian.co.uk","gender":"Female","lat":45.3401583,"long":104.0061889},
     {"id":3,"first_name":"Irv","last_name":"Berrisford","email":"iberrisford2@mozilla.org","gender":"Male","lat":14.3958755,"long":121.0191099},
     {"id":4,"first_name":"Judye","last_name":"Dunbleton","email":"jdunbleton3@umn.edu","gender":"Female","lat":48.9480609,"long":14.5413068},
@@ -17,4 +17,4 @@
     {"id":17,"first_name":"Nada","last_name":"Edy","email":"nedyg@eepurl.com","gender":"Male","lat":-7.7325213,"long":110.402376},
     {"id":18,"first_name":"Torrey","last_name":"Sime","email":"tsimeh@wordpress.org","gender":"Male","lat":22.0391773,"long":96.471658},
     {"id":19,"first_name":"Elsie","last_name":"Fessier","email":"efessieri@unesco.org","gender":"Female","lat":48.3226457,"long":31.5187617},
-    {"id":20,"first_name":"Nike","last_name":"Bettam","email":"nbettamj@tumblr.com","gender":"Male","lat":14.082769,"long":98.193961}]
+    {"id":20,"first_name":"Nike","last_name":"Bettam","email":"nbettamj@tumblr.com","gender":"Male","lat":14.082769,"long":98.193961}]}
