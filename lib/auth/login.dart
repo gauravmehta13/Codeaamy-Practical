@@ -179,7 +179,7 @@ class _LoginPageState extends State<LoginPage> {
                       },
                       text: "Sign In".tr),
                   box(height * 0.02),
-                  InkWell(
+                  GestureDetector(
                     onTap: googleLogin,
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 500),
