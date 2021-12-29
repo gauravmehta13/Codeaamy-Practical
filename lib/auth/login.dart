@@ -158,7 +158,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   box(height * 0.02),
                   GestureDetector(
-                    onTap: () => displaySnackBar("Coming Soon", context),
+                    onTap: () => displaySnackBar("Coming Soon".tr, context),
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: Text("Forgot Password?".tr,
@@ -304,7 +304,7 @@ class _LoginPageState extends State<LoginPage> {
       });
       debugPrint(e.toString());
 
-      displaySnackBar("Error, please try again later..!!", context);
+      displaySnackBar("errorText".tr, context);
     }
   }
 
@@ -339,11 +339,11 @@ class _LoginPageState extends State<LoginPage> {
       });
       debugPrint(e.toString());
       if (e.toString().contains("user-not-found")) {
-        displaySnackBar("User not found", context);
+        displaySnackBar("User not found".tr, context);
       } else if (e.toString().contains("wrong-password")) {
-        displaySnackBar("Wrong password", context);
+        displaySnackBar("Wrong password".tr, context);
       } else {
-        displaySnackBar("Error, please try again later..!!", context);
+        displaySnackBar("errorText".tr, context);
       }
     }
   }

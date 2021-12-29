@@ -29,4 +29,13 @@ const Map<String, String> arSA = {
   "Change Language": "تغيير اللغة",
   "Logout": "تسجيل الخروج",
   "Welcome": "مرحبا",
+  "All": "الكل",
+  "Coming Soon": "قريبا",
+  "errorText": "خطأ، يرجى المحاولة مرة أخرى في وقت لاحق..!!",
+  "User not found": "لم يتم العثور على المستخدم",
+  "Wrong password": "كلمة المرور خاطئة",
+  "Email already in use": "البريد الإلكتروني مستخدم مسبقا",
+  "Network error": "خطأ في الشبكة",
+  "Male": "ذكر",
+  "Female": "أنثى",
 };

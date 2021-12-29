@@ -28,4 +28,13 @@ const Map<String, String> hiIN = {
   "Change Language": "भाषा बदलें",
   "Logout": "लॉग आउट",
   "Welcome": "आपका स्वागत है",
+  "All": "सभी",
+  "Coming Soon": "जल्द आ रहा है",
+  "errorText": "त्रुटि, बाद में पुन: प्रयास करें..!!",
+  "User not found": "उपयोगकर्ता नहीं मिला",
+  "Wrong password": "गलत पासवर्ड",
+  "Email already in use": "ईमेल पहले से ही उपयोग में है",
+  "Network error": "नेटवर्क त्रुटि",
+  "Male": "पुरुष",
+  "Female": "महिला",
 };

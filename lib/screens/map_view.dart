@@ -163,6 +163,7 @@ class _MapViewState extends State<MapView> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: GoogleMap(
+                      compassEnabled: false,
                       initialCameraPosition:
                           CameraPosition(target: initialLatLng, zoom: 5.0),
                       zoomControlsEnabled: false,
@@ -185,16 +186,12 @@ class _MapViewState extends State<MapView> {
                       ),
                     ),
                   ),
-                  Positioned(
+                  const Positioned(
                     top: 20.0,
                     left: 20,
                     child: CircleAvatar(
-                      backgroundColor: primaryColor,
-                      child: Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                      ),
-                    ),
+                        backgroundColor: primaryColor,
+                        child: BackButton(color: Colors.white)),
                   )
                 ],
               ),

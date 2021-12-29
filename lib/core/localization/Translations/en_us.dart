@@ -29,4 +29,13 @@ const Map<String, String> enUS = {
   "Change Language": "Change Language",
   "Logout": "Logout",
   "Welcome": "Welcome",
+  "All": "All",
+  "Male": "Male",
+  "Female": "Female",
+  "Coming Soon": "Coming Soon",
+  "errorText": "Error, please try again later..!!",
+  "User not found": "User not found",
+  "Wrong password": "Wrong password",
+  "Email already in use": "Email already in use",
+  "Network error": "Network error",
 };

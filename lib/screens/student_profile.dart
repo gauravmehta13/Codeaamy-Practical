@@ -1,6 +1,5 @@
 import 'package:abda_learning/core/user_controller.dart';
 import 'package:abda_learning/meta/Utility/constants.dart';
-import 'package:abda_learning/meta/Widgets/logout_button.dart';
 import 'package:abda_learning/meta/models/students.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -32,20 +31,20 @@ class _StudentProfileState extends State<StudentProfile> {
           resizeToAvoidBottomInset: false,
           body: SafeArea(
             child: Container(
-              padding: EdgeInsets.all(30),
+              padding: const EdgeInsets.all(30),
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  box20,
+                  const Spacer(),
                   CircleAvatar(
                     radius: width / 5,
                     backgroundColor: Colors.white70,
                     backgroundImage: AssetImage(
                         "assets/images/${widget.student.gender}.png"),
                   ),
-                  SizedBox(height: height / 20),
+                  const Spacer(),
                   Text(
                     "${widget.student.firstName}  ${widget.student.lastName}",
                     style: GoogleFonts.montserrat(
@@ -72,9 +71,7 @@ class _StudentProfileState extends State<StudentProfile> {
                         fontWeight: FontWeight.w600,
                         fontSize: 12),
                   ),
-                  SizedBox(
-                    height: height / 20,
-                  ),
+                  const Spacer(),
                   TextButton(
                       onPressed: () {
                         showLangDialog(context, setState);
@@ -96,7 +93,6 @@ class _StudentProfileState extends State<StudentProfile> {
                         ],
                       )),
                   const Spacer(),
-                  const LogoutButton(),
                   box10,
                 ],
               ),

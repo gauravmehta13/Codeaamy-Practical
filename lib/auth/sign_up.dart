@@ -243,11 +243,11 @@ class _SignUpPageState extends State<SignUpPage> {
       });
       debugPrint(e.toString());
       if (e.toString().contains("email-already-in-use")) {
-        displaySnackBar("Email already in use", context);
+        displaySnackBar("Email already in use".tr, context);
       } else if (e.toString().contains("network-request-failed")) {
-        displaySnackBar("Network error", context);
+        displaySnackBar("Network error".tr, context);
       } else {
-        displaySnackBar("Error, please try again later..!!", context);
+        displaySnackBar("errorText".tr, context);
       }
     }
   }

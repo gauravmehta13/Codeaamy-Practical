@@ -27,4 +27,13 @@ const Map<String, String> zhCN = {
   "Change Language": "更改语言",
   "Logout": "登出",
   "Welcome": "欢迎",
+  "All": "所有",
+  "Coming Soon": "即将推出",
+  "errorText": "请求失败",
+  "User not found": "用户未找到",
+  "Wrong password": "密码错误",
+  "Email already in use": "电子邮件已在使用",
+  "Network error": "网络错误",
+  "Male": "男性",
+  "Female": "女性",
 };

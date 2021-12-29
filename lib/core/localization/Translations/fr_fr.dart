@@ -31,4 +31,13 @@ const Map<String, String> frFR = {
   "Change Language": "Changer de langue",
   "Logout": "Déconnexion",
   "Welcome": "Bienvenue",
+  "All": "Tout",
+  "Coming Soon": "Bientôt",
+  "errorText": "Erreur, veuillez réessayer plus tard..!!",
+  "User not found": "Utilisateur non trouvé",
+  "Wrong password": "Mot de passe incorrect",
+  "Email already in use": "Email déjà utilisé",
+  "Network error": "Erreur de réseau",
+  "Male": "Mâle",
+  "Female": "Femelle",
 };

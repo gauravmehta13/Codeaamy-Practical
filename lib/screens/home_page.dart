@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                 Container(
                   color: bgColor,
                   padding: Responsive.isMobile(context)
-                      ? EdgeInsets.zero
+                      ? EdgeInsets.symmetric(vertical: 5)
                       : EdgeInsets.symmetric(horizontal: context.width / 4),
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 15),

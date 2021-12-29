@@ -31,4 +31,13 @@ const Map<String, String> esES = {
   "Change Language": "Cambiar idioma",
   "Logout": "Cerrar sesión",
   "Welcome": "Bienvenido",
+  "All": "Todos",
+  "Coming Soon": "Próximamente",
+  "errorText": "Erreur, veuillez réessayer plus tard..!!",
+  "User not found": "Utilisateur non trouvé",
+  "Wrong password": "Mot de passe incorrect",
+  "Email already in use": "Email déjà utilisé",
+  "Network error": "Erreur de réseau",
+  "Male": "Masculina",
+  "Female": "Mujer",
 };
