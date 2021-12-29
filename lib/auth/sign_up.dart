@@ -112,9 +112,14 @@ class _SignUpPageState extends State<SignUpPage> {
                       fontSize: 15,
                       fontWeight: FontWeight.w500),
                   controller: _phoneController,
+                  onTap: () {
+                    if (_phoneController.text.isEmpty) {
+                      _phoneController.text = "+91";
+                    }
+                  },
                   keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp('[0-9+]'))
                   ],
                   validator: (value) {
                     if (value == null || value.isEmpty) {
