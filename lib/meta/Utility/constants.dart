@@ -39,7 +39,7 @@ textfieldDecoration(label, {Widget? suffixIcon}) {
       hintStyle: GoogleFonts.montserrat(color: Colors.grey[600], fontSize: 12));
 }
 
-displaySnackBar(text, ctx, [time = 2]) {
+displaySnackBar(String text, BuildContext ctx, [int time = 2]) {
   ScaffoldMessenger.of(ctx).showSnackBar(
     SnackBar(
       content: Text(text),

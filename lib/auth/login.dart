@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:abda_learning/core/user_controller.dart';
 import 'package:abda_learning/screens/home_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,6 +27,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
   final formKey = GlobalKey<FormState>();
   bool loadingGoogle = false;
   bool loadingMail = false;
@@ -118,6 +121,12 @@ class _LoginPageState extends State<LoginPage> {
                   box(height * 0.02),
                   TextFormField(
                     controller: passwordController,
+                    onFieldSubmitted: (value) {
+                      FocusScope.of(context).unfocus();
+                      if (formKey.currentState!.validate()) {
+                        emailLogin();
+                      }
+                    },
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -148,27 +157,24 @@ class _LoginPageState extends State<LoginPage> {
                             ))),
                   ),
                   box(height * 0.02),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Text("Forgot Password?".tr,
-                        style: GoogleFonts.montserrat(
-                          color: Colors.grey[700],
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                        )),
+                  GestureDetector(
+                    onTap: () => displaySnackBar("Coming Soon", context),
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Text("Forgot Password?".tr,
+                          style: GoogleFonts.montserrat(
+                            color: Colors.grey[700],
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                          )),
+                    ),
                   ),
                   const Spacer(),
                   CustomButton(
-                      onTap: () async {
-                        if (formKey.currentState!.validate()) {
-                          SharedPreferences prefs =
-                              await SharedPreferences.getInstance();
-                          Map data = {
-                            "email": emailController.text,
-                            "password": passwordController.text,
-                          };
-                          prefs.setString("user", json.encode(data));
-                          Get.offAll(() => const HomePage());
+                      isLoading: loadingMail,
+                      onTap: () {
+                        if (formKey.currentState!.validate() && !loadingMail) {
+                          emailLogin();
                         }
                       },
                       text: "Sign In".tr),
@@ -177,7 +183,7 @@ class _LoginPageState extends State<LoginPage> {
                     onTap: googleLogin,
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 500),
-                      width: loadingGoogle ? null : 700,
+                      // width: loadingGoogle ? null : 700,
                       constraints: BoxConstraints(
                         maxWidth: width * 0.9,
                         maxHeight: height * 0.6,
@@ -247,6 +253,7 @@ class _LoginPageState extends State<LoginPage> {
   Future googleLogin() async {
     final FirebaseAuth auth = FirebaseAuth.instance;
     final googleSignIn = GoogleSignIn();
+    if (loadingGoogle || loadingMail) return;
     setState(() {
       loadingGoogle = true;
     });
@@ -264,16 +271,31 @@ class _LoginPageState extends State<LoginPage> {
           idToken: googleAuth.idToken,
         );
         await auth.signInWithCredential(credential).then((value) async {
-          debugPrint("User is New = ${value.additionalUserInfo!.isNewUser}");
-          var userData = {
-            'name': user.displayName,
-            'email': user.email,
-            'photo': user.photoUrl,
-          };
-          SharedPreferences pref = await SharedPreferences.getInstance();
-          pref.setString("user", json.encode(userData));
-          Get.find<UserData>().updateUser(userData);
-          Get.offAll(() => const HomePage());
+          DocumentReference ref = users.doc(user.id);
+          ref.get().then((data) async {
+            if (data.exists) {
+              SharedPreferences pref = await SharedPreferences.getInstance();
+              pref.setString("user", json.encode(data.data() as Map));
+              Get.find<UserData>().updateUser(data.data() as Map);
+              Get.offAll(() => const HomePage());
+            } else {
+              var userData = {
+                'name': user.displayName,
+                'email': user.email,
+                'photo': user.photoUrl,
+                "createdAt": DateTime.now().toUtc().toString()
+              };
+              ref.set(userData).then((value) async {
+                SharedPreferences pref = await SharedPreferences.getInstance();
+                pref.setString("user", json.encode(userData));
+                Get.find<UserData>().updateUser(userData);
+                Get.offAll(() => const HomePage());
+              }).onError((error, d) {
+                log("Failed to add user: $error");
+                displaySnackBar("Failed to add user", context);
+              });
+            }
+          });
         });
       }
     } catch (e) {
@@ -281,11 +303,13 @@ class _LoginPageState extends State<LoginPage> {
         loadingGoogle = false;
       });
       debugPrint(e.toString());
-      Get.snackbar("Error", "Error, please try again later..!!");
+
+      displaySnackBar("Error, please try again later..!!", context);
     }
   }
 
   Future emailLogin() async {
+    if (loadingGoogle || loadingMail) return;
     final FirebaseAuth auth = FirebaseAuth.instance;
     final email = emailController.text;
     final password = passwordController.text;
@@ -297,14 +321,30 @@ class _LoginPageState extends State<LoginPage> {
           email: email, password: password);
       final User? user = authResult.user;
       if (user != null) {
-        Get.offAll(() => const HomePage());
+        DocumentReference ref = users.doc(user.uid);
+        ref.get().then((data) async {
+          if (data.exists) {
+            SharedPreferences pref = await SharedPreferences.getInstance();
+            pref.setString("user", json.encode(data.data() as Map));
+            Get.find<UserData>().updateUser(data.data() as Map);
+            Get.offAll(() => const HomePage());
+          } else {
+            displaySnackBar("Failed to get user data", context);
+          }
+        });
       }
     } catch (e) {
       setState(() {
         loadingMail = false;
       });
       debugPrint(e.toString());
-      Get.snackbar("Error", "Error, please try again later..!!");
+      if (e.toString().contains("user-not-found")) {
+        displaySnackBar("User not found", context);
+      } else if (e.toString().contains("wrong-password")) {
+        displaySnackBar("Wrong password", context);
+      } else {
+        displaySnackBar("Error, please try again later..!!", context);
+      }
     }
   }
 }

@@ -143,7 +143,11 @@ class _MapViewState extends State<MapView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      // appBar: AppBar(
+      //   backgroundColor: bgColor,
+      //   centerTitle: true,
+      //   title: Text("Map View"),
+      // ),
       body: widget.students.isEmpty
           ? const Center(
               child: Text(
@@ -153,34 +157,47 @@ class _MapViewState extends State<MapView> {
                     TextStyle(fontWeight: FontWeight.w600, color: Colors.grey),
               ),
             )
-          : Stack(
-              children: <Widget>[
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: GoogleMap(
-                    initialCameraPosition:
-                        CameraPosition(target: initialLatLng, zoom: 5.0),
-                    zoomControlsEnabled: false,
-                    markers: Set.from(allMarkers),
-                    onMapCreated: mapCreated,
-                  ),
-                ),
-                Positioned(
-                  bottom: 20.0,
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.25,
+          : SafeArea(
+              child: Stack(
+                children: <Widget>[
+                  SizedBox(
                     width: MediaQuery.of(context).size.width,
-                    child: PageView.builder(
-                      controller: _pageController,
-                      itemCount: widget.students.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return buildCardOrderRequest(
-                            context, widget.students[index]);
-                      },
+                    child: GoogleMap(
+                      initialCameraPosition:
+                          CameraPosition(target: initialLatLng, zoom: 5.0),
+                      zoomControlsEnabled: false,
+                      markers: Set.from(allMarkers),
+                      onMapCreated: mapCreated,
                     ),
                   ),
-                )
-              ],
+                  Positioned(
+                    bottom: 20.0,
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.25,
+                      width: MediaQuery.of(context).size.width,
+                      child: PageView.builder(
+                        controller: _pageController,
+                        itemCount: widget.students.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return buildCardOrderRequest(
+                              context, widget.students[index]);
+                        },
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 20.0,
+                    left: 20,
+                    child: CircleAvatar(
+                      backgroundColor: primaryColor,
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
     );
   }

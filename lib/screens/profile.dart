@@ -39,8 +39,8 @@ class _ProfileState extends State<Profile> {
                   CircleAvatar(
                       radius: width / 5,
                       backgroundColor: Colors.white70,
-                      backgroundImage: NetworkImage(
-                          state.img ?? "https://i.imgur.com/ZY9jrQy.png")),
+                      backgroundImage: NetworkImage(state.img ??
+                          "https://anrp.tamu.edu/wp-content/uploads/sites/29/2014/12/Image-Not-Available-240x300.jpg")),
                   SizedBox(height: height / 20),
                   Text(
                     state.name,

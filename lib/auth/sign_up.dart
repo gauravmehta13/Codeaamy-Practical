@@ -1,6 +1,9 @@
 import 'dart:convert';
+import 'dart:developer';
 
+import 'package:abda_learning/core/user_controller.dart';
 import 'package:abda_learning/screens/home_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +13,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../meta/Utility/constants.dart';
 import '../meta/Widgets/custom_button.dart';
-import '../screens/profile.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -25,6 +27,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
   bool obscureText = true;
   bool isLoading = false;
   @override
@@ -69,6 +72,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     )),
                 const Spacer(),
                 TextFormField(
+                  textInputAction: TextInputAction.next,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   style: GoogleFonts.montserrat(
                     color: Colors.white,
@@ -82,6 +86,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 box(height * 0.015),
                 TextFormField(
+                  textInputAction: TextInputAction.next,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   style: GoogleFonts.montserrat(
                       color: Colors.white,
@@ -100,12 +105,17 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 box(height * 0.015),
                 TextFormField(
+                  textInputAction: TextInputAction.next,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   style: GoogleFonts.montserrat(
                       color: Colors.white,
                       fontSize: 15,
                       fontWeight: FontWeight.w500),
                   controller: _phoneController,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Phone number cannot be empty".tr;
@@ -116,6 +126,14 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 box(height * 0.015),
                 TextFormField(
+                  textInputAction: TextInputAction.done,
+                  onFieldSubmitted: (value) {
+                    FocusScope.of(context).unfocus();
+                    if (formKey.currentState!.validate()) {
+                      emailSignUp();
+                    }
+                  },
+                  controller: _passwordController,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   obscureText: obscureText,
                   style: GoogleFonts.montserrat(
@@ -144,18 +162,10 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 const Spacer(),
                 CustomButton(
+                    isLoading: isLoading,
                     onTap: () async {
                       if (formKey.currentState!.validate()) {
-                        SharedPreferences prefs =
-                            await SharedPreferences.getInstance();
-                        Map data = {
-                          "email": _emailController.text,
-                          "password": _passwordController.text,
-                          "name": _nameController.text,
-                          "phone": _phoneController.text
-                        };
-                        prefs.setString("user", json.encode(data));
-                        Get.offAll(() => const Profile());
+                        emailSignUp();
                       }
                     },
                     text: "Sign Up".tr),
@@ -173,7 +183,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         TextSpan(text: " ".tr),
                         TextSpan(
                           text: 'Sign In'.tr,
-                          style: TextStyle(color: primaryColor),
+                          style: const TextStyle(color: primaryColor),
                         ),
                       ],
                     ),
@@ -192,6 +202,7 @@ class _SignUpPageState extends State<SignUpPage> {
     final FirebaseAuth auth = FirebaseAuth.instance;
     final email = _emailController.text;
     final password = _passwordController.text;
+    if (isLoading) return;
     setState(() {
       isLoading = true;
     });
@@ -200,14 +211,44 @@ class _SignUpPageState extends State<SignUpPage> {
           email: email, password: password);
       final User? user = authResult.user;
       if (user != null) {
-        Get.offAll(() => const HomePage());
+        DocumentReference ref = users.doc(user.uid);
+        ref.get().then((data) async {
+          if (data.exists) {
+            SharedPreferences pref = await SharedPreferences.getInstance();
+            pref.setString("user", json.encode(data.data() as Map));
+            Get.find<UserData>().updateUser(data.data() as Map);
+            Get.offAll(() => const HomePage());
+          } else {
+            var userData = {
+              'name': _nameController.text,
+              'email': _emailController.text,
+              "phone": _phoneController.text,
+              "createdAt": DateTime.now().toUtc().toString()
+            };
+            ref.set(userData).then((value) async {
+              SharedPreferences pref = await SharedPreferences.getInstance();
+              pref.setString("user", json.encode(userData));
+              Get.find<UserData>().updateUser(userData);
+              Get.offAll(() => const HomePage());
+            }).onError((error, d) {
+              log("Failed to add user: $error");
+              displaySnackBar("Failed to add user", context);
+            });
+          }
+        });
       }
     } catch (e) {
       setState(() {
         isLoading = false;
       });
       debugPrint(e.toString());
-      Get.snackbar("Error", "Error, please try again later..!!");
+      if (e.toString().contains("email-already-in-use")) {
+        displaySnackBar("Email already in use", context);
+      } else if (e.toString().contains("network-request-failed")) {
+        displaySnackBar("Network error", context);
+      } else {
+        displaySnackBar("Error, please try again later..!!", context);
+      }
     }
   }
 }
