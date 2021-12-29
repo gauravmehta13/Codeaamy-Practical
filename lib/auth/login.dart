@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:abda_learning/core/user_controller.dart';
 import 'package:abda_learning/screens/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -248,6 +249,14 @@ class _LoginPageState extends State<LoginPage> {
         );
         await auth.signInWithCredential(credential).then((value) async {
           debugPrint("User is New = ${value.additionalUserInfo!.isNewUser}");
+          var userData = {
+            'name': user.displayName,
+            'email': user.email,
+            'photo': user.photoUrl,
+          };
+          SharedPreferences pref = await SharedPreferences.getInstance();
+          pref.setString("user", json.encode(userData));
+          Get.find<UserData>().updateUser(userData);
           Get.offAll(() => const HomePage());
         });
       }

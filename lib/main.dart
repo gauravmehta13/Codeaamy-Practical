@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:abda_learning/screens/home_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'auth/getting_started.dart';
 import 'core/localization/locale.dart';
 import 'core/theme/app_theme.dart';
-import 'screens/profile.dart';
+import 'core/user_controller.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,10 +17,15 @@ Future<void> main() async {
 
   Future<SharedPreferences> prefs = SharedPreferences.getInstance();
   prefs.then((pref) async {
+    Get.put(UserData(), permanent: true);
     String? userData = pref.getString("user");
+    if (userData != null) {
+      Get.find<UserData>().updateUser(json.decode(userData));
+    }
+
     runApp(MyApp(
         pref: pref,
-        page: userData == null ? const GettingStarted() : const Profile()));
+        page: userData == null ? const GettingStarted() : const HomePage()));
   });
 }
 
@@ -48,6 +55,6 @@ class MyApp extends StatelessWidget {
         darkTheme: AppTheme(context).darkTheme,
         themeMode: ThemeMode.dark,
         defaultTransition: Transition.fadeIn,
-        home: const HomePage());
+        home: page);
   }
 }

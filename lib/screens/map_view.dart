@@ -1,6 +1,7 @@
 import 'package:abda_learning/meta/Utility/constants.dart';
 import 'package:abda_learning/meta/models/students.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapView extends StatefulWidget {
@@ -14,6 +15,13 @@ class MapView extends StatefulWidget {
 }
 
 class _MapViewState extends State<MapView> {
+  Future<String> getAddressFromLatLng(LatLng latLng) async {
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(latLng.latitude, latLng.longitude);
+
+    return "";
+  }
+
   GoogleMapController? _controller;
 
   List<Marker> allMarkers = [];
