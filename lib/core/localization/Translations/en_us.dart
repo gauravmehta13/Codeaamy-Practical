@@ -1,7 +1,7 @@
 const Map<String, String> enUS = {
   "abda": "abda",
-  "Watch your favorite movies or series on only one platform. You can watch it anytime and anywhere":
-      "Watch your favorite movies or series on only one platform. You can watch it anytime and anywhere",
+  "Get connected with Students all over the world, and start your journey to become a part of the community.":
+      "Get connected with Students all over the world, and start your journey to become a part of the community.",
   "Get Started": "Get Started",
   "Welcome Back!": "Welcome Back!",
   "Please sign in to your account": "Please sign in to your account",

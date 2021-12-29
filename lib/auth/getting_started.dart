@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -38,7 +36,7 @@ class _GettingStartedState extends State<GettingStarted> {
       appBar: AppBar(
         toolbarHeight: 0,
         systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: Color(0xFF9faaac),
+          statusBarColor: Color(0xFFe5edf1),
           statusBarIconBrightness: Brightness.dark,
           statusBarBrightness: Brightness.dark,
         ),
@@ -99,7 +97,7 @@ class _GettingStartedState extends State<GettingStarted> {
                         ),
                         box30,
                         Text(
-                            "Watch your favorite movies or series on only one platform. You can watch it anytime and anywhere"
+                            "Get connected with Students all over the world, and start your journey to become a part of the community."
                                 .tr,
                             textAlign: TextAlign.center,
                             style: GoogleFonts.montserrat(

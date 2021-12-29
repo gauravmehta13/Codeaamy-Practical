@@ -22,7 +22,6 @@ Future<void> main() async {
     if (userData != null) {
       Get.find<UserData>().updateUser(json.decode(userData));
     }
-
     runApp(MyApp(
         pref: pref,
         page: userData == null ? const GettingStarted() : const HomePage()));

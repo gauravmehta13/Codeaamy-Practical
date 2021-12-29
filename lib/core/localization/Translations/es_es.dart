@@ -1,7 +1,7 @@
 const Map<String, String> esES = {
   "abda": "abda",
-  "Watch your favorite movies or series on only one platform. You can watch it anytime and anywhere":
-      "Mira tus películas o series favoritas en una sola plataforma. Puedes verlo en cualquier momento y en cualquier lugar.",
+  "Get connected with Students all over the world, and start your journey to become a part of the community.":
+      "Conectarse con estudiantes de todo el mundo, y comenzar su viaje para convertirse en parte de la comunidad.",
   "Get Started": "Empezar",
   "Welcome Back!": "¡Bienvenido de nuevo!",
   "Please sign in to your account": "Por favor, inicia sesión en tu cuenta",

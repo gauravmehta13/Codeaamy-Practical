@@ -1,7 +1,9 @@
 import 'package:abda_learning/meta/Utility/constants.dart';
 import 'package:abda_learning/meta/models/students.dart';
+import 'package:abda_learning/screens/student_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapView extends StatefulWidget {
@@ -15,11 +17,26 @@ class MapView extends StatefulWidget {
 }
 
 class _MapViewState extends State<MapView> {
-  Future<String> getAddressFromLatLng(LatLng latLng) async {
+  Future<String> getAddressFromLatLng(double? lat, double? long) async {
     List<Placemark> placemarks =
-        await placemarkFromCoordinates(latLng.latitude, latLng.longitude);
-
-    return "";
+        await placemarkFromCoordinates(lat ?? 0, long ?? 0);
+    Placemark placemark = placemarks[0];
+    String address = (placemark.subThoroughfare ?? '') +
+        ' ' +
+        (placemark.thoroughfare ?? '') +
+        ' ' +
+        (placemark.subLocality ?? '') +
+        ' ' +
+        (placemark.locality ?? '') +
+        ' ' +
+        (placemark.subAdministrativeArea ?? '') +
+        ' ' +
+        (placemark.administrativeArea ?? '') +
+        ' ' +
+        (placemark.postalCode ?? '') +
+        ' ' +
+        (placemark.country ?? '');
+    return address;
   }
 
   GoogleMapController? _controller;
@@ -37,6 +54,14 @@ class _MapViewState extends State<MapView> {
         widget.students[widget.initialIndex].long ?? 0);
     for (var student in widget.students) {
       allMarkers.add(Marker(
+          onTap: () {
+            // _pageController!.animateToPage(
+            //   widget.students.indexOf(student),
+            //   duration: const Duration(milliseconds: 200),
+            //   curve: Curves.easeInOut,
+            // );
+            _pageController!.jumpToPage(widget.students.indexOf(student));
+          },
           markerId: MarkerId(student.id?.toString() ??
               DateTime.now().millisecondsSinceEpoch.toString()),
           draggable: false,
@@ -58,18 +83,23 @@ class _MapViewState extends State<MapView> {
   }
 
   Widget buildCardOrderRequest(BuildContext context, StudentData student) {
-    // TODo add future builder for address
+    String address = "";
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Get.to(() => StudentProfile(
+              student: student,
+              address: address,
+            ));
+      },
       child: Container(
           margin: const EdgeInsets.all(5),
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
               // boxShadow: [boxShadow],
               borderRadius: BorderRadius.circular(10.0),
-              color: Theme.of(context).backgroundColor),
+              color: bgColor.withOpacity(0.9)),
           child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 CircleAvatar(
@@ -77,16 +107,35 @@ class _MapViewState extends State<MapView> {
                   backgroundImage:
                       AssetImage("assets/images/${student.gender}.png"),
                 ),
-                Text("${student.firstName}  ${student.lastName}",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(fontWeight: FontWeight.bold, fontSize: 17)),
-                Text(student.email ?? "",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(fontWeight: FontWeight.bold, fontSize: 12)),
+                Column(
+                  children: [
+                    Text("${student.firstName}  ${student.lastName}",
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            fontWeight: FontWeight.bold, fontSize: 17)),
+                    Text(student.email ?? "",
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            fontWeight: FontWeight.w600, fontSize: 12)),
+                  ],
+                ),
+                FutureBuilder<String>(
+                  future: getAddressFromLatLng(student.lat, student.long),
+                  builder:
+                      (BuildContext context, AsyncSnapshot<String> snapshot) {
+                    if (snapshot.hasData && snapshot.data != null) {
+                      address = snapshot.data ?? "";
+                    }
+                    return Text(
+                      snapshot.data ?? "",
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .copyWith(fontSize: 10),
+                    );
+                  },
+                )
               ])),
     );
   }
@@ -119,7 +168,7 @@ class _MapViewState extends State<MapView> {
                 Positioned(
                   bottom: 20.0,
                   child: SizedBox(
-                    height: 150,
+                    height: MediaQuery.of(context).size.height * 0.25,
                     width: MediaQuery.of(context).size.width,
                     child: PageView.builder(
                       controller: _pageController,

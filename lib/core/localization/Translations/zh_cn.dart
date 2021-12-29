@@ -1,7 +1,7 @@
 const Map<String, String> zhCN = {
   "abda": "阿布达",
-  "Watch your favorite movies or series on only one platform. You can watch it anytime and anywhere":
-      "看你喜欢的电影或系列只在一个平台上。你可以随时随地看它",
+  "Get connected with Students all over the world, and start your journey to become a part of the community.":
+      "获取与学生在世界各地连接，开始你的旅程，成为一个社区的一部分。",
   "Get Started": "开始",
   "Welcome Back!": "欢迎回来！",
   "Please sign in to your account": "请登录您的帐户",

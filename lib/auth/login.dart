@@ -172,28 +172,43 @@ class _LoginPageState extends State<LoginPage> {
                   box(height * 0.02),
                   InkWell(
                     onTap: googleLogin,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 22),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.network(
-                              "https://img.icons8.com/color/48/000000/google-logo.png",
-                              height: 20),
-                          wbox30,
-                          Text("Sign in with Google".tr,
-                              style: GoogleFonts.montserrat(
-                                fontSize: 12,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600,
-                              )),
-                        ],
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 500),
+                      width: isLoading ? null : 700,
+                      constraints: BoxConstraints(
+                        maxWidth: width * 0.9,
+                        maxHeight: height * 0.6,
                       ),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius:
+                            BorderRadius.circular(isLoading ? 500 : 20),
                       ),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: isLoading ? 12 : 20,
+                          vertical: isLoading ? 12 : 22),
+                      child: isLoading
+                          ? const SizedBox(
+                              height: 30,
+                              width: 30,
+                              child: CircularProgressIndicator(
+                                  color: primaryColor),
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.network(
+                                    "https://img.icons8.com/color/48/000000/google-logo.png",
+                                    height: 20),
+                                wbox30,
+                                Text("Sign in with Google".tr,
+                                    style: GoogleFonts.montserrat(
+                                      fontSize: 12,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w600,
+                                    )),
+                              ],
+                            ),
                     ),
                   ),
                   box(height * 0.05),

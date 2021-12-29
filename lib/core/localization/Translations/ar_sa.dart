@@ -1,7 +1,7 @@
 const Map<String, String> arSA = {
   "abda": "عبدة",
-  "Watch your favorite movies or series on only one platform. You can watch it anytime and anywhere":
-      "مشاهدة فيلمك أو سلسلتك المفضلة على أقل عدد من الأنظمة. يمكنك مشاهدتها في أي وقت وفي أي مكان",
+  "Get connected with Students all over the world, and start your journey to become a part of the community.":
+      "الاتصال بالطلاب في جميع أنحاء العالم، وبدء عملك في تجنب الحياة الخاصة بك.",
   "Get Started": "البدء",
   "Welcome Back!": "مرحبا بعودتك!",
   "Please sign in to your account": "الرجاء تسجيل الدخول إلى حسابك",

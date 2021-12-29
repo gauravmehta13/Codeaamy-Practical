@@ -1,7 +1,7 @@
 const Map<String, String> hiIN = {
   "abda": "अब्दा",
-  "Watch your favorite movies or series on only one platform. You can watch it anytime and anywhere":
-      "आपको मुझे पसंद की वॉल्टिव या सीआरी मोड में ही अपनी पसंदीदा मोड को देख सकते हैं। आप कभी भी कभी यहां या कभी भी कर सकते हैं।",
+  "Get connected with Students all over the world, and start your journey to become a part of the community.":
+      "सभी विद्यार्थी के साथ जुड़ें, और अपने यात्रा को शुरू करें, जो आप समुदाय के सदस्य हो जाएंगे।",
   "Get Started": "शुरु करें",
   "Welcome Back!": "आपका स्वागत है!",
   "Please sign in to your account": "कृपया अपने खाते में साइन इन करें",
